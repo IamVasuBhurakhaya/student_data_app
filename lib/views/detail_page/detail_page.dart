@@ -44,21 +44,6 @@ class _DetailPageState extends State<DetailPage> {
     }
   }
 
-  void saveStudentDetails() {
-    Globals.allStudentDetail.clear();
-    for (var controllers in studentControllers) {
-      if (controllers["name"]!.text.isNotEmpty &&
-          controllers["id"]!.text.isNotEmpty &&
-          controllers["std"]!.text.isNotEmpty) {
-        Globals.allStudentDetail.add({
-          "name": controllers["name"]!.text,
-          "id": controllers["id"]!.text,
-          "std": controllers["std"]!.text,
-        });
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -72,10 +57,10 @@ class _DetailPageState extends State<DetailPage> {
             style: TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.bold,
-              color: Colors.black54,
-              letterSpacing: 0.8,
+              color: Colors.white,
             ),
           ),
+          backgroundColor: Colors.teal,
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),
@@ -83,7 +68,7 @@ class _DetailPageState extends State<DetailPage> {
             width: double.infinity,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xffE9EDC9),
+              color: Colors.teal.shade100,
               borderRadius: BorderRadius.circular(10),
             ),
             child: SingleChildScrollView(
@@ -91,12 +76,14 @@ class _DetailPageState extends State<DetailPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                    "Enter student details",
+                    "Enter Student Details",
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 22,
-                        color: Colors.black54),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22,
+                      color: Colors.black54,
+                    ),
                   ),
+                  const SizedBox(height: 10),
                   Column(
                     children: List.generate(
                       studentControllers.length,
@@ -106,20 +93,35 @@ class _DetailPageState extends State<DetailPage> {
                             controller: studentControllers[index]["name"],
                             decoration: const InputDecoration(
                               labelText: 'Student Name',
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
                             ),
                           ),
+                          const SizedBox(height: 10),
                           TextFormField(
                             controller: studentControllers[index]["id"],
                             decoration: const InputDecoration(
                               labelText: 'Student ID',
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
                             ),
                           ),
+                          const SizedBox(height: 10),
                           TextFormField(
                             controller: studentControllers[index]["std"],
                             decoration: const InputDecoration(
                               labelText: 'Student Standard',
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
                             ),
                           ),
+                          const SizedBox(height: 10),
                           IconButton(
                             onPressed: () {
                               studentControllers.removeAt(index);
@@ -131,7 +133,7 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   ElevatedButton.icon(
                     onPressed: () {
                       studentControllers.add({
@@ -143,14 +145,37 @@ class _DetailPageState extends State<DetailPage> {
                     },
                     icon: const Icon(Icons.add),
                     label: const Text("Add Student"),
+                    style: ElevatedButton.styleFrom(
+                      iconColor: Colors.teal,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      saveStudentDetails();
+                      Globals.allStudentDetail.clear();
+                      for (var controllers in studentControllers) {
+                        if (controllers["name"]!.text.isNotEmpty &&
+                            controllers["id"]!.text.isNotEmpty &&
+                            controllers["std"]!.text.isNotEmpty) {
+                          Globals.allStudentDetail.add({
+                            "name": controllers["name"]!.text,
+                            "id": controllers["id"]!.text,
+                            "std": controllers["std"]!.text,
+                          });
+                        }
+                      }
                       Navigator.pop(context);
                     },
                     child: const Text("Save and Go Back"),
+                    style: ElevatedButton.styleFrom(
+                      iconColor: Colors.teal,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                   ),
                 ],
               ),

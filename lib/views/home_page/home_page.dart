@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:student_data_app/utils/globals.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Function to show the AlertDialog for editing student details
   void _showEditDialog(BuildContext context, int index) {
     var student = Globals.allStudentDetail[index];
     TextEditingController nameController =
@@ -70,11 +70,58 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _deleteStudent(int index) {
+    setState(() {
+      Globals.allStudentDetail.removeAt(index);
+    });
+  }
+
+  void _showAwesomeSnackbar(BuildContext context, String studentName) {
+    final snackBar = SnackBar(
+      content: AwesomeSnackbarContent(
+        title: 'Student Deleted',
+        message: '$studentName has been removed from the list.',
+        contentType: ContentType.success,
+      ),
+      duration: const Duration(seconds: 2),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home Page"),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80.0), // AppBar height
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.teal, Colors.tealAccent],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 8.0,
+                spreadRadius: 2.0,
+                offset: Offset(0.0, 2.0),
+              ),
+            ],
+          ),
+          child: AppBar(
+            title: const Text(
+              "Student Details",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -83,38 +130,77 @@ class _HomePageState extends State<HomePage> {
                 itemCount: Globals.allStudentDetail.length,
                 itemBuilder: (context, index) {
                   var student = Globals.allStudentDetail[index];
-                  return Card(
-                    elevation: 3,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    child: ListTile(
-                      title: Text(
-                        student['name'] ?? "No Name",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                  return Dismissible(
+                    key: Key(student['id'] ?? index.toString()),
+                    background: Container(
+                      color: Colors.red,
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: const Icon(Icons.delete, color: Colors.white),
+                    ),
+                    direction: DismissDirection.endToStart,
+                    onDismissed: (direction) {
+                      _showAwesomeSnackbar(context, student['name']);
+                      _deleteStudent(index);
+                    },
+                    child: Card(
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.all(15),
+                        title: Text(
+                          student['name'] ?? "No Name",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.teal,
+                          ),
                         ),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("ID: ${student['id'] ?? 'No ID'}"),
-                          Text("Standard: ${student['std'] ?? 'No Standard'}"),
-                        ],
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () {
-                          _showEditDialog(context, index);
-                        },
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 5),
+                            Text("ID: ${student['id'] ?? 'No ID'}"),
+                            Text(
+                                "Standard: ${student['std'] ?? 'No Standard'}"),
+                          ],
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.teal),
+                          onPressed: () {
+                            _showEditDialog(context, index);
+                          },
+                        ),
                       ),
                     ),
                   );
                 },
               )
-            : const Center(
-                child: Text(
-                  'No student details available. Add some students.',
-                  style: TextStyle(fontSize: 18, color: Colors.black54),
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.person_add_alt,
+                      size: 100,
+                      color: Colors.teal.withOpacity(0.5),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'No student details available.',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Tap the "+" button to add new students.',
+                      style: TextStyle(fontSize: 16, color: Colors.black54),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               ),
       ),
@@ -124,9 +210,8 @@ class _HomePageState extends State<HomePage> {
             setState(() {});
           });
         },
-        child: const Icon(
-          Icons.add,
-        ),
+        backgroundColor: Colors.teal,
+        child: const Icon(Icons.add),
       ),
     );
   }

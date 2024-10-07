@@ -13,19 +13,19 @@ class SplashScreen extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.teal, Colors.tealAccent],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
-        child: Center(
+        child: const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
-              const Text(
+              SizedBox(height: 20),
+              Text(
                 "Welcome to Student Data App",
                 style: TextStyle(
                   fontSize: 24,
@@ -33,8 +33,8 @@ class SplashScreen extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
+              SizedBox(height: 10),
+              Text(
                 "Your educational journey begins here!",
                 style: TextStyle(
                   fontSize: 16,

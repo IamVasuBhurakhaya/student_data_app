@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void _showEditDialog(BuildContext context, int index) {
+  void showEditDialog(BuildContext context, int index) {
     var student = Globals.allStudentDetail[index];
     TextEditingController nameController =
         TextEditingController(text: student['name']);
@@ -70,17 +70,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _deleteStudent(int index) {
-    setState(() {
-      Globals.allStudentDetail.removeAt(index);
-    });
-  }
-
-  void _showAwesomeSnackbar(BuildContext context, String studentName) {
-    final snackBar = SnackBar(
+  void showAwesomeSnackbar(BuildContext context, String studentName) {
+    var snackBar = SnackBar(
       content: AwesomeSnackbarContent(
-        title: 'Student Deleted',
-        message: '$studentName has been removed from the list.',
+        title: 'Student Details Deleted',
+        message: '$studentName has been removed from the Data.',
         contentType: ContentType.success,
       ),
       duration: const Duration(seconds: 2),
@@ -140,8 +134,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                     direction: DismissDirection.endToStart,
                     onDismissed: (direction) {
-                      _showAwesomeSnackbar(context, student['name']);
-                      _deleteStudent(index);
+                      showAwesomeSnackbar(context, student['name']);
+                      setState(() {
+                        Globals.allStudentDetail.removeAt(index);
+                      });
                     },
                     child: Card(
                       elevation: 8,
@@ -171,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                         trailing: IconButton(
                           icon: const Icon(Icons.edit, color: Colors.teal),
                           onPressed: () {
-                            _showEditDialog(context, index);
+                            showEditDialog(context, index);
                           },
                         ),
                       ),

@@ -63,12 +63,12 @@ The **Student Data App** is a Flutter-based mobile application designed to manag
 
 ### Screenshots:
 <img src="https://github.com/user-attachments/assets/919416ab-c8b7-4b21-88f2-9b537fbb7e73" height=400 width= 200>
-<img src="https://github.com/user-attachments/assets/cf2cf2de-fab3-495f-a486-7a80e65cce26" height=400 width= 200>
+<img src="https://github.com/user-attachments/assets/ef46ca3a-6a9e-4fb0-96af-5308f293d460" height=400 width= 200>
 <img src="https://github.com/user-attachments/assets/e00fbd65-014e-4c57-932b-e6162592ae3a" height=400 width= 200>
 <img src="https://github.com/user-attachments/assets/d63c7923-51c2-4e98-9abb-3591ba57fd91" height=400 width= 200>
-<img src="https://github.com/user-attachments/assets/8469e950-13dd-4220-9428-0e7ae40ed567" height=400 width= 200>
-<img src="https://github.com/user-attachments/assets/fec200d2-df8d-4eaf-b4f5-5cd2a39cf138" height=400 width= 200>
+<img src="https://github.com/user-attachments/assets/32e8de06-0f45-46a9-9ce8-da00b58e4048" height=400 width= 200>
 <img src="https://github.com/user-attachments/assets/68c77ab2-1be7-4cf8-8988-131fcd881689" height=400 width= 200>
+<img src="https://github.com/user-attachments/assets/fec200d2-df8d-4eaf-b4f5-5cd2a39cf138" height=400 width= 200>
 
 
 

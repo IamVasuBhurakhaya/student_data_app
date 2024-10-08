@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:student_data_app/utils/globals.dart';
+import 'package:student_data_app/utils/my_extension.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -110,6 +114,7 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
             backgroundColor: Colors.transparent,
@@ -155,13 +160,58 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.teal,
                           ),
                         ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        subtitle: Row(
                           children: [
-                            const SizedBox(height: 5),
-                            Text("ID: ${student['id'] ?? 'No ID'}"),
-                            Text(
-                                "Standard: ${student['std'] ?? 'No Standard'}"),
+                            Stack(
+                              children: [
+                                CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: Colors.tealAccent.shade100,
+                                  foregroundImage: Globals.image != null
+                                      ? FileImage(Globals.image!)
+                                      : null,
+                                  child: IconButton(
+                                    onPressed: () async {
+                                      final ImagePicker imagePicker =
+                                          ImagePicker();
+                                      final source =
+                                          await showDialog<ImageSource>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return ElevatedButton(
+                                            child: const Text("Camera"),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pop(ImageSource.camera);
+                                            },
+                                          );
+                                        },
+                                      );
+                                      if (source != null) {
+                                        final XFile? file = await imagePicker
+                                            .pickImage(source: source);
+                                      }
+                                      setState(() {});
+                                    },
+                                    icon: const Icon(
+                                      Icons.camera_alt,
+                                      size: 34,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            12.w,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 5),
+                                Text("ID: ${student['id'] ?? 'No ID'}"),
+                                Text(
+                                    "Standard: ${student['std'] ?? 'No Standard'}"),
+                              ],
+                            ),
                           ],
                         ),
                         trailing: IconButton(

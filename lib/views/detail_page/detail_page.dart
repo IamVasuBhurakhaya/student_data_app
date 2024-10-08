@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:student_data_app/utils/globals.dart';
 
@@ -51,16 +50,38 @@ class _DetailPageState extends State<DetailPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "Student Details",
-            style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(80.0), // AppBar height
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.teal, Colors.tealAccent],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 8.0,
+                  spreadRadius: 2.0,
+                  offset: Offset(0.0, 2.0),
+                ),
+              ],
+            ),
+            child: AppBar(
+              title: const Text(
+                "Student Details",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
             ),
           ),
-          backgroundColor: Colors.teal,
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),
@@ -169,13 +190,13 @@ class _DetailPageState extends State<DetailPage> {
                       }
                       Navigator.pop(context);
                     },
-                    child: const Text("Save and Go Back"),
                     style: ElevatedButton.styleFrom(
                       iconColor: Colors.teal,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
+                    child: const Text("Save and Go Back"),
                   ),
                 ],
               ),

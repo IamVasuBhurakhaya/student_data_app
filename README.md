@@ -29,7 +29,7 @@ The **Student Data App** is a Flutter-based mobile application designed to manag
 ## Project Technologies
 - **Language**: Dart
 - **Framework**: Flutter
-- **Development Tools**: Android Studio, VS Code, IntelliJ IDEA
+- **Development Tools**: Android Studio
 
 ## App Structure
 
@@ -49,7 +49,7 @@ The **Student Data App** is a Flutter-based mobile application designed to manag
 
 - **Add Student**: Fill in student details (name, ID, and standard) and add them to the list.
 - **Edit Student**: Edit details by selecting a student from the list.
-- **Delete Student**: Swipe left or right on a student's entry to delete them from the list.
+- **Delete Student**: Swipe left on a student's entry to delete them from the list.
 - **Persistent Data**: Data is saved globally and retained across sessions.
 
 ### User Guide
